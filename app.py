@@ -31,6 +31,8 @@ authenticator = stauth.Authenticate(
     cookie["key"],
     cookie["expiry_days"],
 )
+
+
 authentication_status = authenticator.login(location = 'main')
 
 # Se login for bem-sucedido
