@@ -14,7 +14,16 @@ from negocios import mostrar_negocios
 st.set_page_config(page_title="Dashboard 2025", layout="wide")
 
 # Carregando o arquivo de configuração
-config = st.secrets['login']
+usernames = st.secrets["credentials"]["usernames"]
+passwords = st.secrets["passwords"]
+cookie = st.secrets["cookie"]
+
+credentials = {
+    "usernames": {
+        user: {"name": user.capitalize(), "password": passwords[user]}
+        for user in usernames
+    }
+}
 # Autenticação
 authenticator = stauth.Authenticate(
     config['credentials'],
