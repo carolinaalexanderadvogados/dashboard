@@ -26,12 +26,11 @@ credentials = {
 }
 # Autenticação
 authenticator = stauth.Authenticate(
-    config['credentials'],
-    config['cookie']['name'],
-    config['cookie']['key'],
-    config['cookie']['expiry_days'],
+    credentials,
+    cookie["name"],
+    cookie["key"],
+    cookie["expiry_days"],
 )
-
 authentication_status = authenticator.login(location = 'main')
 
 # Se login for bem-sucedido
