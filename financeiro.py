@@ -74,7 +74,7 @@ def mostrar_financeiro():
 
         fig = fig.update_layout(
         paper_bgcolor="#ffffff",
-        font={"color": "white", "family": "Arial"},
+        font={"color": "black", "family": "Arial"},
         )
 
         st.plotly_chart(fig, use_container_width=True)
