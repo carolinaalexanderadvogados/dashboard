@@ -39,7 +39,7 @@ authentication_status = authenticator.login(location = 'main')
 if st.session_state["authentication_status"]:
     authenticator.logout('Logout', 'main')
 
-   def cabecalho(logo_path, titulo):
+def cabecalho(logo_path, titulo):
     col_logo, col_titulo = st.columns([1, 5])
     
     with col_logo:
