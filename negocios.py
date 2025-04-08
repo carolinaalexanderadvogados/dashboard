@@ -14,7 +14,7 @@ def mostrar_negocios():
     COR_DOURADO = "#C49451"
 
 
-    st.subheader("Negócios Processos")
+    st.subheader("Processos")
     col1,col2,col3,col4,col5,col6 = st.columns(6)
 
     ajuizamento_atual = int(negocios_processos['1. Ajuizamento'].values[0])
@@ -79,7 +79,7 @@ def mostrar_negocios():
     # Mostrar gráfico
     st.plotly_chart(fig)
 
-    st.subheader("Negócios Relacionamento")
+    st.subheader("Projetos")
 
     # Criar colunas para métricas
     col1, col2, col3, col4, col5, col6 = st.columns(6)
