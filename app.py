@@ -55,9 +55,9 @@ if st.session_state["authentication_status"]:
             menu_icon="list",
             default_index=0,
             styles={
-                "container": {"padding": "5px", "background-color": "#222B32"},
-                "icon": {"color": "white", "font-size": "18px"},
-                "nav-link": {"color": "white", "font-size": "16px", "text-align": "left", "margin": "0px"},
+                "container": {"padding": "5px", "background-color": "#ffffff"},
+                "icon": {"color": "black", "font-size": "18px"},
+                "nav-link": {"color": "black", "font-size": "16px", "text-align": "left", "margin": "0px"},
                 "nav-link-selected": {"background-color": "#C6244B", "font-weight": "bold"},
             }
         )
