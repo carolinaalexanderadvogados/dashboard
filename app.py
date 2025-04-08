@@ -58,7 +58,7 @@ if st.session_state["authentication_status"]:
                 "container": {"padding": "5px", "background-color": "#ffffff"},
                 "icon": {"color": "black", "font-size": "18px"},
                 "nav-link": {"color": "black", "font-size": "16px", "text-align": "left", "margin": "0px"},
-                "nav-link-selected": {"background-color": "#C6244B", "font-weight": "bold"},
+                "nav-link-selected": {"background-color": "#C49451", "font-weight": "bold"},
             }
         )
 
