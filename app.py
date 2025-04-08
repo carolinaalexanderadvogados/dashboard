@@ -39,13 +39,22 @@ authentication_status = authenticator.login(location = 'main')
 if st.session_state["authentication_status"]:
     authenticator.logout('Logout', 'main')
 
-    def cabecalho(logo_path, titulo):
-        col_logo, col_titulo = st.columns([1, 5])
-        with col_logo:
-            logo = Image.open(logo_path)
-            st.image(logo, width=300)
-        with col_titulo:
-            st.title(titulo)
+   def cabecalho(logo_path, titulo):
+    col_logo, col_titulo = st.columns([1, 5])
+    
+    with col_logo:
+        logo = Image.open(logo_path)
+        st.image(logo, width=150)  # Ajuste o tamanho conforme necessário
+
+    with col_titulo:
+        st.markdown(
+            f"""
+            <div style="display: flex; align-items: center; height: 100%;">
+                <h1 style="margin: 0; padding-left: 10px;">{titulo}</h1>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     with st.sidebar:
         pagina = option_menu(
