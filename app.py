@@ -44,7 +44,7 @@ if st.session_state["authentication_status"]:
     
         with col_logo:
             logo = Image.open(logo_path)
-            st.image(logo, width=150)  # Ajuste o tamanho conforme necessário
+            st.image(logo, width=250)  # Ajuste o tamanho conforme necessário
 
         with col_titulo:
             st.markdown(
