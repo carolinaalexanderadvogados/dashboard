@@ -73,7 +73,7 @@ def mostrar_financeiro():
         ))
 
         fig = fig.update_layout(
-        paper_bgcolor="#222B32",
+        paper_bgcolor="#ffffff",
         font={"color": "white", "family": "Arial"},
         )
 
