@@ -1,10 +1,13 @@
 import streamlit as st
 from PIL import Image
+import pandas as pd
 from streamlit_option_menu import option_menu
 import streamlit_authenticator as stauth
 from streamlit_authenticator import Authenticate
 import yaml
 from yaml.loader import SafeLoader
+from datasets import filtro
+import plotly.graph_objects as go
 
 from financeiro import mostrar_financeiro, fig
 from tarefas import mostrar_tarefas, tarefas_hoje
@@ -76,6 +79,29 @@ if st.session_state["authentication_status"]:
     if pagina == "Visão Geral":
         st.subheader("Visão Geral")
         with st.container(border=True):
+            data_mais_recente = filtro['Data'].values[0]
+            data_mais_recente = pd.to_datetime(data_mais_recente) 
+            oxigenio_objetivo = 24
+            oxigenio_atual = filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0] if not filtro.empty else 0
+            fig = go.Figure(go.Indicator(
+            mode="gauge+number",
+            value=oxigenio_atual,
+            title={"text": "Oxigênio em Meses"},
+            gauge={
+                "axis": {"range": [0, oxigenio_objetivo]},
+                "bar": {"color": "#f7e1c1"},  # Cor da agulha
+                "steps": [
+                    {"range": [0, 6], "color": "#E63950"},  # Período crítico
+                    {"range": [6, 12], "color": "#C6244B"},  # Período de atenção
+                    {"range": [12, oxigenio_objetivo], "color":	"#920E30"}  # Situação confortável
+                ]
+            }
+            ))
+
+            fig = fig.update_layout(
+            paper_bgcolor="#ffffff",
+            font={"color": "black", "family": "Arial"},
+            )
             st.plotly_chart(fig, use_container_width=True)
         with st.container(border=True):
             st.subheader('Processos')
