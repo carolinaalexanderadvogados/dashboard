@@ -115,7 +115,7 @@ if st.session_state["authentication_status"]:
             with row1[2]:    
                 st.metric("Amanhã", value=tarefas_hoje['Amanhã'].sum(), border=True)
             with row2[0]:
-                st.metric("Esta Semana", value=tarefas_hoje['Esta Semana'].sum(), border=True)
+                st.metric("Esta Semana", value=tarefas_hoje['Esta semana'].sum(), border=True)
             with row2[1]:    
                 st.metric("Próxima Semana", value=tarefas_hoje['Próxima Semana'].sum(), border=True)
             with row2[2]:    
