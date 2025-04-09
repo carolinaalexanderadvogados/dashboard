@@ -6,11 +6,11 @@ import streamlit_authenticator as stauth
 from streamlit_authenticator import Authenticate
 import yaml
 from yaml.loader import SafeLoader
-from datasets import filtro
+from datasets import filtro, tarefas
 import plotly.graph_objects as go
 
 from financeiro import mostrar_financeiro
-from tarefas import mostrar_tarefas, tarefas_hoje
+from tarefas import mostrar_tarefas
 from negocios import mostrar_negocios
 
 
@@ -105,6 +105,8 @@ if st.session_state["authentication_status"]:
             st.plotly_chart(fig, use_container_width=True)
         with st.container(border=True):
             st.subheader('Processos')
+            data = tarefas["Data"].max()
+            tarefas_hoje = tarefas[tarefas['Data'] == data]
             row1, row2 = st.columns(3), st.columns(3)
             with row1[0]:
                 st.metric("Vencido", value=tarefas_hoje['Vencido'].sum(), border=True)
