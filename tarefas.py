@@ -10,9 +10,6 @@ def mostrar_tarefas():
     COR_LARANJA = "#FF692D"
     COR_DOURADO = "#C49451"
 
-    # Selecionar a pessoa
-    nomes_disponiveis = tarefas["Nome"].unique()
-    pessoa_selecionada = st.selectbox("Selecione uma pessoa:", nomes_disponiveis)
 
     Dados = {
         'Nomes': [
@@ -34,6 +31,9 @@ def mostrar_tarefas():
     }
 
     df_dados = pd.DataFrame(Dados)
+    nomes_disponiveis = df_dados['Nomes']
+    pessoa_selecionada = st.selectbox("Selecione uma pessoa:", nomes_disponiveis)
+
 
     
     cargo_pessoa = df_dados[df_dados["Nomes"] == pessoa_selecionada]["Cargo"].values[0]
