@@ -117,7 +117,7 @@ if st.session_state["authentication_status"]:
             with row2[0]:
                 st.metric("Esta Semana", value=tarefas_hoje['Esta semana'].sum(), border=True)
             with row2[1]:    
-                st.metric("Próxima Semana", value=tarefas_hoje['Próxima Semana'].sum(), border=True)
+                st.metric("Próxima Semana", value=tarefas_hoje['Próxima semana'].sum(), border=True)
             with row2[2]:    
                 st.metric("Longe", value=tarefas_hoje['Longe'].sum(), border=True)
             st.table(tarefas_hoje.sort_values(by='Vencido', ascending=False))
