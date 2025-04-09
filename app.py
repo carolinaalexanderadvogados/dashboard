@@ -9,7 +9,7 @@ from yaml.loader import SafeLoader
 from datasets import filtro
 import plotly.graph_objects as go
 
-from financeiro import mostrar_financeiro, fig
+from financeiro import mostrar_financeiro
 from tarefas import mostrar_tarefas, tarefas_hoje
 from negocios import mostrar_negocios
 
