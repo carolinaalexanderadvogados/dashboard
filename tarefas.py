@@ -19,7 +19,7 @@ def mostrar_tarefas():
             "Alexander Santana", "Alice Rocha", "André Corá", "Carolina Takeda",
             "Henrique Choinski", "Isabele Martins", "Julia Bittencourt",
             "Luiz Carrano", "Marco Santana", "Paula Uriarte",
-            "Pedro da Silveira", "Schiefler Advocacia"
+            "Pedro Silveira", "Schiefler Advocacia"
         ],
         'Apelido': [
             "Alexander", "Alice", "André", "Carolina", "Henrique",
