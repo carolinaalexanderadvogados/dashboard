@@ -6,8 +6,8 @@ from streamlit_authenticator import Authenticate
 import yaml
 from yaml.loader import SafeLoader
 
-from financeiro import mostrar_financeiro
-from tarefas import mostrar_tarefas
+from financeiro import mostrar_financeiro, fig
+from tarefas import mostrar_tarefas, tarefas_hoje
 from negocios import mostrar_negocios
 
 
@@ -75,6 +75,27 @@ if st.session_state["authentication_status"]:
 
     if pagina == "Visão Geral":
         st.subheader("Visão Geral")
+        with st.container(border=True):
+            st.plotly_chart(fig, use_container_width=True)
+        with st.container(border=True):
+            st.subheader('Processos')
+            row1, row2 = st.columns(3), st.columns(3)
+            with row1[0]:
+                st.metric("Vencido", value=tarefas_hoje['Vencido'].sum(), border=True)
+            with row1[1]:    
+                st.metric("Hoje", value=tarefas_hoje['Hoje'].sum(), border=True)
+            with row1[2]:    
+                st.metric("Amanhã", value=tarefas_hoje['Amanhã'].sum(), border=True)
+            with row2[0]:
+                st.metric("Esta Semana", value=tarefas_hoje['Esta Semana'].sum(), border=True)
+            with row2[1]:    
+                st.metric("Próxima Semana", value=tarefas_hoje['Próxima Semana'].sum(), border=True)
+            with row2[2]:    
+                st.metric("Longe", value=tarefas_hoje['Longe'].sum(), border=True)
+            st.table(tarefas_hoje.sort_values(by='Vencido', ascending=False))
+ 
+
+
 
     elif pagina == "Financeiro":
         mostrar_financeiro()
