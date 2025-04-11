@@ -52,7 +52,7 @@ def mostrar_financeiro():
         st.metric(label="Caixa", value=caixa_mais_recente, delta=caixa_formatada, border=True)
 
         oxigenio_objetivo = 24
-        oxigenio_atual = filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0] if not filtro.empty else 0
+        oxigenio_atual = filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0]
 
     graf1, graf2 = st.columns(2)
 
