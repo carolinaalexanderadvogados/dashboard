@@ -46,7 +46,7 @@ def mostrar_tarefas():
 
     
     with col1:
-        st.image("fotos/" + apelido_pessoa_selecionada + ".png", width=150)
+        st.image("fotos/" + apelido_pessoa_selecionada + ".jpg", width=150)
         st.subheader(pessoa_selecionada)
         st.write(f"**Função:** {cargo_pessoa}")
 
