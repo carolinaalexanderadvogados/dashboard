@@ -85,7 +85,7 @@ if st.session_state["authentication_status"]:
             oxigenio_atual = filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0] if not filtro.empty else 0
             fig = go.Figure(go.Indicator(
             mode="gauge+number",
-            value=oxigenio_atual,
+            value=oxigenio_atual/100,
             title={"text": "Oxigênio em Meses"},
             gauge={
                 "axis": {"range": [0, oxigenio_objetivo]},
