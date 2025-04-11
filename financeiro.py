@@ -59,7 +59,7 @@ def mostrar_financeiro():
     with graf1: 
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
-            value=oxigenio_atual/10,
+            value=oxigenio_atual/100,
             title={"text": "Oxigênio em Meses"},
             gauge={
                 "axis": {"range": [0, oxigenio_objetivo]},
