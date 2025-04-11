@@ -120,10 +120,7 @@ if st.session_state["authentication_status"]:
                 st.metric("Próxima Semana", value=tarefas_hoje['Próxima semana'].sum(), border=True)
             with row2[2]:    
                 st.metric("Longe", value=tarefas_hoje['Longe'].sum(), border=True)
-                
-            tarefas_resumo = tarefas_hoje[['Nome', 'Vencido', 'Hoje']].sort_values(by='Vencido', ascending=False)
-            st.table(tarefas_resumo)
-
+            st.table(tarefas_hoje[['Nome', 'Vencido', 'Hoje']].sort_values(by='Vencido', ascending=False))
 
  
 

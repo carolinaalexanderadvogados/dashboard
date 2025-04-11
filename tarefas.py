@@ -31,9 +31,8 @@ def mostrar_tarefas():
     }
 
     df_dados = pd.DataFrame(Dados)
-    nomes_disponiveis = df_dados['Nomes']
+    nomes_disponiveis = df_dados["Nomes"]
     pessoa_selecionada = st.selectbox("Selecione uma pessoa:", nomes_disponiveis)
-
 
     
     cargo_pessoa = df_dados[df_dados["Nomes"] == pessoa_selecionada]["Cargo"].values[0]

@@ -18,15 +18,15 @@ def mostrar_financeiro():
     col2, col3, col4 = st.columns(3)
 
     data_mais_recente = filtro['Data'].max()
-    data_mais_recente = pd.to_datetime(data_mais_recente) 
-
-    receita_atual = filtro['Receitas'].values[0]
+    data_mais_recente = filtro['Data'].max()
+    filtro_mais_recente = filtro[filtro['Data']== data_mais_recente]
+    receita_atual = filtro_mais_recente['Receitas'].values[0]
     receita_anterior = filtro['Receitas'].values[1]
 
-    despesa_atual = filtro['Despesas'].values[0]
+    despesa_atual = filtro_mais_recente['Despesas'].values[0]
     despesa_anterior = filtro['Despesas'].values[1]
 
-    caixa_atual = filtro['Caixa'].values[0]
+    caixa_atual = filtro_mais_recente['Caixa'].values[0]
     caixa_anterior = filtro['Caixa'].values[1]
 
     data_mais_recente_str = data_mais_recente.strftime('%d/%m/%Y')
