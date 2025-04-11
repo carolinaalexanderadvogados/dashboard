@@ -78,7 +78,7 @@ if st.session_state["authentication_status"]:
 
     if pagina == "Visão Geral":
         Dados = {
-            'Nomes': [
+            'Nome': [
                 "Alexander Santana", "Alice Rocha", "André Corá", "Carolina Takeda",
                 "Henrique Choinski", "Isabele Martins", "Julia Bittencourt",
                 "Luiz Carrano", "Marco Santana", "Paula Uriarte",
