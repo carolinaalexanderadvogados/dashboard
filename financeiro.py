@@ -17,7 +17,7 @@ def mostrar_financeiro():
 
     col2, col3, col4 = st.columns(3)
 
-    data_mais_recente = filtro['Data'].values[0]
+    data_mais_recente = filtro['Data'].max()
     data_mais_recente = pd.to_datetime(data_mais_recente) 
 
     receita_atual = filtro['Receitas'].values[0]
