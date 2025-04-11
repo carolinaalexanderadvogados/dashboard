@@ -77,6 +77,27 @@ if st.session_state["authentication_status"]:
     cabecalho("arquivos/logo.jpg", "Dashboard 2025")
 
     if pagina == "Visão Geral":
+        Dados = {
+            'Nomes': [
+                "Alexander Santana", "Alice Rocha", "André Corá", "Carolina Takeda",
+                "Henrique Choinski", "Isabele Martins", "Julia Bittencourt",
+                "Luiz Carrano", "Marco Santana", "Paula Uriarte",
+                "Pedro Silveira", "Schiefler Advocacia"
+            ],
+            'Apelido': [
+                "Alexander", "Alice", "André", "Carolina", "Henrique",
+                "Isabele", "Julia", "Carrano", "Marco", "Paula",
+                "Pedro", "Schiefler"
+            ],
+            "Cargo": [
+                "Advogado", " Financeiro e suporte na análise de dados.", "Estagiário", "Estagiário", "Advogado",
+                "Secretária executivo", "Estagiário", "Advogado", "Advogado", "Secretária executivo",
+                "Advogado", "Parceiro"
+            ]
+            }
+        df_cargos = pd.DataFrame(Dados)
+        advogados = df_cargos[df_cargos["Cargo"].str.strip() == "Advogado"]["Nome"]
+
         st.subheader("Visão Geral")
         with st.container(border=True):
             data_mais_recente = filtro['Data'].values[0]
@@ -107,6 +128,7 @@ if st.session_state["authentication_status"]:
             st.subheader('Processos')
             data = tarefas["Data"].max()
             tarefas_hoje = tarefas[tarefas['Data'] == data]
+            tarefas_advogados = tarefas_hoje[tarefas_hoje["Nome"].isin(advogados)]
             row1, row2 = st.columns(3), st.columns(3)
             with row1[0]:
                 st.metric("Vencido", value=tarefas_hoje['Vencido'].sum(), border=True)
@@ -120,7 +142,7 @@ if st.session_state["authentication_status"]:
                 st.metric("Próxima Semana", value=tarefas_hoje['Próxima semana'].sum(), border=True)
             with row2[2]:    
                 st.metric("Longe", value=tarefas_hoje['Longe'].sum(), border=True)
-            st.table(tarefas_hoje[['Nome', 'Vencido', 'Hoje']].sort_values(by='Vencido', ascending=False))
+            st.table(tarefas_advogados[['Nome', 'Vencido', 'Hoje']].sort_values(by='Vencido', ascending=False))
 
  
 

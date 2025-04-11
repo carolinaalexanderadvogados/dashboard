@@ -24,8 +24,8 @@ def mostrar_tarefas():
             "Pedro", "Schiefler"
         ],
         "Cargo": [
-            "Advogado", "Funcionário", "Estagiário", "Estagiário", "Advogado",
-            "Funcionário", "Estagiário", "Advogado", "Advogado", "Funcionário",
+            "Advogado", " Financeiro e suporte na análise de dados.", "Estagiário", "Estagiário", "Advogado",
+            "Secretária executivo", "Estagiário", "Advogado", "Advogado", "Secretária executivo",
             "Advogado", "Parceiro"
         ]
     }
@@ -112,6 +112,36 @@ def mostrar_tarefas():
             tarefas_agrupadas = tarefas_hoje_pessoa[["Sprint", "Pendência", "Reunião", "Responder", "Organizar", "Monitorar"]].sum()
             fig_pizza = px.pie(tarefas_hoje_pessoa, values=tarefas_agrupadas.values, names=tarefas_agrupadas.index, title="Tipos de Tarefas",color_discrete_sequence=px.colors.sequential.RdBu )
             st.plotly_chart(fig_pizza)
+        elif cargo_pessoa == "Parceiro":
+            row1, row2 = st.columns(3), st.columns(3)
+            with row1[0]:
+                st.metric("Vencido", tarefas_hoje_pessoa['Vencido'].sum(), border=True)
+            with row1[1]:
+                st.metric("Hoje", tarefas_hoje_pessoa['Hoje'].sum(), border=True)
+            with row1[2]:
+                st.metric("Amanhã", tarefas_hoje_pessoa['Amanhã'].sum(), border=True)
+
+            with row2[0]:
+                st.metric("Esta Semana", tarefas_hoje_pessoa['Esta semana'].sum(), border=True)
+            with row2[1]:
+                st.metric("Próxima Semana", tarefas_hoje_pessoa['Próxima semana'].sum(), border=True)
+            with row2[2]:
+                st.metric("Longe", tarefas_hoje_pessoa['Longe'].sum(), border=True)
+            st.subheader("Tarefas")
+
+            fig_prazo = px.line(
+            tarefas[tarefas["Nome"]==pessoa_selecionada],
+            x="Data",
+            y="Prazo Processual",
+            markers=False,
+            title="Evolução Prazo Processual"
+            )
+
+            fig_prazo.update_traces(line=dict(color=COR_VERMELHO))
+
+            st.plotly_chart(fig_prazo)
+
+
         else:   
 
 
