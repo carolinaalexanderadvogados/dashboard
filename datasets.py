@@ -58,16 +58,15 @@ def converter_moeda(valor):
         return 0.0  # ou np.nan
     return valor
 
+filtro = financeiro[financeiro['Receitas'].notna() & (financeiro['Receitas'] != '')]
+filtro = filtro.sort_values(by='Data', ascending=False)
+
 colunas_monetarias = ['Receitas', 'Despesas', 'Caixa', 'Investimento Itaú', 'Conta Itaú']
 
 
 for coluna in colunas_monetarias:
-    financeiro[coluna] = financeiro[coluna].apply(converter_moeda)
+    filtro[coluna] = filtro[coluna].apply(converter_moeda)
 
-#filtro de data mais recente tal que Receitas é não vazio: 
-
-filtro = financeiro[financeiro['Receitas'].notna() & (financeiro['Receitas'] != '')]
-filtro = filtro.sort_values(by='Data', ascending=False)
 
 #FORMATAÇÃO NEGÓCIOS 
 
