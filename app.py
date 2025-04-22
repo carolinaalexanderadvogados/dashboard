@@ -102,7 +102,9 @@ if st.session_state["authentication_status"]:
             tarefas_hoje = tarefas[tarefas['Data'] == data]
             tarefas_advogados = tarefas_hoje[tarefas_hoje["Nome"].isin(advogados)]
 
-            row1, row2 = st.columns(3)
+            row1 = st.columns(3)
+            row2 = st.columns(3)
+            
             with row1[0]:
                 st.metric("Vencido", value=tarefas_hoje['Vencido'].sum(), border=True)
             with row1[1]:
