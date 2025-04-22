@@ -1,78 +1,74 @@
 import pandas as pd
 import gspread
 from google.oauth2.service_account import Credentials
-import json
 import streamlit as st
 
-
-
+# Definição de escopos
 scopes = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
 
+# Autenticação com as credenciais do Streamlit
 service_account_info = dict(st.secrets["gcp_service_account"])
 creds = Credentials.from_service_account_info(service_account_info, scopes=scopes)
-
 client = gspread.authorize(creds)
 
+# Abertura da planilha
 planilha_completa = client.open(
-    title="Dashboard 2025", 
+    title="Dashboard 2025",
     folder_id="1E6lnp2Q5eFOfzbbq56Sff4DlQnWA66D1"
-    )
+)
 
-tarefas = planilha_completa.get_worksheet(1)
-tarefas = tarefas.get_all_records()
-tarefas = pd.DataFrame(tarefas)
+# Carregando os dados das abas
+tarefas = pd.DataFrame(planilha_completa.get_worksheet(1).get_all_records())
+negocios_relacionamento = pd.DataFrame(planilha_completa.get_worksheet(3).get_all_records())
+negocios_processos = pd.DataFrame(planilha_completa.get_worksheet(4).get_all_records())
+financeiro = pd.DataFrame(planilha_completa.get_worksheet(2).get_all_records())
 
-negocios_relacionamento  = planilha_completa.get_worksheet(3)
-negocios_relacionamento  = negocios_relacionamento.get_all_records()
-negocios_relacionamento  = pd.DataFrame(negocios_relacionamento )
+# --- FORMATAÇÃO ---
 
-negocios_processos  = planilha_completa.get_worksheet(4)
-negocios_processos  = negocios_processos.get_all_records()
-negocios_processos  = pd.DataFrame(negocios_processos)
+# Limpeza dos nomes das colunas
+financeiro.columns = financeiro.columns.str.strip()
 
-financeiro = planilha_completa.get_worksheet(2)
-financeiro  = financeiro.get_all_records()
-financeiro = pd.DataFrame(financeiro)
-
-
-
-
-#FORMATAÇÃO FINANCEIRO 
-
-#formatação de data, e coluna de mês
+# Conversão de data e oxigênio
 financeiro['Data'] = pd.to_datetime(financeiro['Data'], format='%d/%m/%Y')
-financeiro['Oxigênio Meses'] = financeiro['Oxigênio Meses'].astype(str).apply(lambda x: float(x.replace('.', '').replace(',', '.')))
+financeiro['Oxigênio Meses'] = financeiro['Oxigênio Meses'].astype(str).apply(
+    lambda x: float(x.replace('.', '').replace(',', '.')))
 
-
-# formatação de moeda para número 
+# Função de conversão de moeda
 def converter_moeda(valor):
     if isinstance(valor, str):
         valor = valor.strip()
         if valor == '' or valor == 'nan':
-            return 0.0  # ou use np.nan se quiser deixar como NaN
+            return 0.0
         return float(valor.replace('R$', '').replace('.', '').replace(',', '.'))
     elif pd.isna(valor):
-        return 0.0  # ou np.nan
+        return 0.0
     return valor
 
+# Filtro com base nas receitas
 filtro = financeiro[financeiro['Receitas'].notna() & (financeiro['Receitas'] != '')]
+filtro.columns = filtro.columns.str.strip()
 filtro = filtro.sort_values(by='Data', ascending=False)
 
-colunas_monetarias = ['Receitas', 'Despesas', '	Média Despesas 12 meses', 'Caixa', 'Investimento Itaú', 'Conta Itaú']
-
-
+# Conversão das colunas monetárias
+colunas_monetarias = ['Receitas', 'Despesas', 'Média Despesas 12 meses', 'Caixa', 'Investimento Itaú', 'Conta Itaú']
 for coluna in colunas_monetarias:
-    filtro[coluna] = filtro[coluna].apply(converter_moeda)
+    if coluna in filtro.columns:
+        filtro[coluna] = filtro[coluna].apply(converter_moeda)
+    else:
+        print(f"[AVISO] Coluna '{coluna}' não encontrada em 'filtro'.")
 
-
-#FORMATAÇÃO NEGÓCIOS 
-
+# Datas nos dados de negócios
+negocios_relacionamento.columns = negocios_relacionamento.columns.str.strip()
 negocios_relacionamento['Data'] = pd.to_datetime(negocios_relacionamento['Data'], format='%d/%m/%Y')
 negocios_relacionamento = negocios_relacionamento.sort_values(by='Data', ascending=False)
+
+negocios_processos.columns = negocios_processos.columns.str.strip()
 negocios_processos['Data'] = pd.to_datetime(negocios_processos['Data'], format='%d/%m/%Y')
 negocios_processos = negocios_processos.sort_values(by='Data', ascending=False)
 
-tarefas['Data'] =pd.to_datetime(tarefas['Data'], format='%d/%m/%Y')
+# Conversão de data nas tarefas
+tarefas.columns = tarefas.columns.str.strip()
+tarefas['Data'] = pd.to_datetime(tarefas['Data'], format='%d/%m/%Y')
