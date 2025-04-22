@@ -61,7 +61,7 @@ def converter_moeda(valor):
 filtro = financeiro[financeiro['Receitas'].notna() & (financeiro['Receitas'] != '')]
 filtro = filtro.sort_values(by='Data', ascending=False)
 
-colunas_monetarias = ['Receitas', 'Despesas', 'Caixa', 'Investimento Itaú', 'Conta Itaú']
+colunas_monetarias = ['Receitas', 'Despesas', '	Média Despesas 12 meses', 'Caixa', 'Investimento Itaú', 'Conta Itaú']
 
 
 for coluna in colunas_monetarias:

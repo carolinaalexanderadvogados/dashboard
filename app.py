@@ -97,33 +97,6 @@ if st.session_state["authentication_status"]:
             }
         df_cargos = pd.DataFrame(Dados)
         advogados = df_cargos[df_cargos["Cargo"].str.strip() == "Advogado"]["Nome"]
-
-        st.subheader("Visão Geral")
-        with st.container(border=True):
-            data_mais_recente = filtro['Data'].values[0]
-            data_mais_recente = pd.to_datetime(data_mais_recente) 
-            oxigenio_objetivo = 24
-            oxigenio_atual = filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0] if not filtro.empty else 0
-            fig = go.Figure(go.Indicator(
-            mode="gauge+number",
-            value=oxigenio_atual/100,
-            title={"text": "Oxigênio em Meses"},
-            gauge={
-                "axis": {"range": [0, oxigenio_objetivo]},
-                "bar": {"color": "#f7e1c1"},  # Cor da agulha
-                "steps": [
-                    {"range": [0, 6], "color": "#E63950"},  # Período crítico
-                    {"range": [6, 12], "color": "#C6244B"},  # Período de atenção
-                    {"range": [12, oxigenio_objetivo], "color":	"#920E30"}  # Situação confortável
-                ]
-            }
-            ))
-
-            fig = fig.update_layout(
-            paper_bgcolor="#ffffff",
-            font={"color": "black", "family": "Arial"},
-            )
-            st.plotly_chart(fig, use_container_width=True)
         with st.container(border=True):
             st.subheader('Processos')
             data = tarefas["Data"].max()
@@ -143,9 +116,33 @@ if st.session_state["authentication_status"]:
             with row2[2]:    
                 st.metric("Longe", value=tarefas_hoje['Longe'].sum(), border=True)
             st.table(tarefas_advogados[['Nome', 'Vencido', 'Hoje']].sort_values(by='Vencido', ascending=False))
+        st.subheader("Visão Geral")
+        
+        with st.container(border=True):
+            data_mais_recente = filtro['Data'].values[0]
+            data_mais_recente = pd.to_datetime(data_mais_recente) 
+            oxigenio_objetivo = 24
+            oxigenio_atual = filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0] if not filtro.empty else 0
+            fig = go.Figure(go.Indicator(
+            mode="gauge+number",
+            value=oxigenio_atual,
+            title={"text": "Oxigênio em Meses"},
+            gauge={
+                "axis": {"range": [0, oxigenio_objetivo]},
+                "bar": {"color": "#f7e1c1"},  # Cor da agulha
+                "steps": [
+                    {"range": [0, 8], "color": "#ff6464"},  # Período crítico
+                    {"range": [8, 16], "color": "#ffe162"},  # Período de atenção
+                    {"range": [16, oxigenio_objetivo], "color":	"#91c483"}  # Situação confortável
+                ]
+            }
+        ))
 
- 
-
+            fig = fig.update_layout(
+            paper_bgcolor="#ffffff",
+            font={"color": "black", "family": "Arial"},
+            )
+            st.plotly_chart(fig, use_container_width=True)
 
 
     elif pagina == "Financeiro":

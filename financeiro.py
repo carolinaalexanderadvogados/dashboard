@@ -59,15 +59,15 @@ def mostrar_financeiro():
     with graf1: 
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
-            value=oxigenio_atual/100,
+            value=oxigenio_atual,
             title={"text": "Oxigênio em Meses"},
             gauge={
                 "axis": {"range": [0, oxigenio_objetivo]},
                 "bar": {"color": "#f7e1c1"},  # Cor da agulha
                 "steps": [
-                    {"range": [0, 6], "color": "#E63950"},  # Período crítico
-                    {"range": [6, 12], "color": "#C6244B"},  # Período de atenção
-                    {"range": [12, oxigenio_objetivo], "color":	"#920E30"}  # Situação confortável
+                    {"range": [0, 8], "color": "#ff6464"},  # Período crítico
+                    {"range": [8, 16], "color": "#ffe162"},  # Período de atenção
+                    {"range": [16, oxigenio_objetivo], "color":	"#91c483"}  # Situação confortável
                 ]
             }
         ))

@@ -110,8 +110,19 @@ def mostrar_tarefas():
 
             st.plotly_chart(fig_prazo)
             tarefas_agrupadas = tarefas_hoje_pessoa[["Sprint", "Pendência", "Reunião", "Responder", "Organizar", "Monitorar"]].sum()
-            fig_pizza = px.pie(tarefas_hoje_pessoa, values=tarefas_agrupadas.values, names=tarefas_agrupadas.index, title="Tipos de Tarefas",color_discrete_sequence=px.colors.sequential.RdBu )
+            fig_pizza = px.pie(tarefas_hoje_pessoa, values=tarefas_agrupadas.values, names=tarefas_agrupadas.index, title="Tipos de Tarefas" )
             st.plotly_chart(fig_pizza)
+
+            opcoes = ["Sprint", "Pendência", "Reunião", "Responder", "Organizar", "Monitorar"]
+            coluna_selecionada_adv = st.selectbox("Selecione a métrica:", opcoes)
+            fig_adv_tarefas = px.line(
+            tarefas.sort_values(by='Data', ascending=True),
+            x="Data",
+            y=coluna_selecionada_adv,
+            markers=True,
+            title=f"Evolução de {coluna_selecionada_adv}"
+    )
+
         elif cargo_pessoa == "Parceiro":
             row1, row2 = st.columns(3), st.columns(3)
             with row1[0]:
