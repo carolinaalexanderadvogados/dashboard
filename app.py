@@ -122,7 +122,7 @@ if st.session_state["authentication_status"]:
             data_mais_recente = filtro['Data'].values[0]
             data_mais_recente = pd.to_datetime(data_mais_recente) 
             oxigenio_objetivo = 24
-            oxigenio_atual = filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0] if not filtro.empty else 0
+            oxigenio_atual = (filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0])/100 if not filtro.empty else 0
             fig = go.Figure(go.Indicator(
             mode="gauge+number",
             value=oxigenio_atual,
