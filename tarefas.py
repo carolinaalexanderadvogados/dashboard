@@ -40,6 +40,7 @@ def mostrar_tarefas():
     data = tarefas["Data"].max()
     tarefas_hoje = tarefas[tarefas['Data'] == data]
     tarefas_hoje_pessoa = tarefas_hoje[tarefas_hoje['Nome'] == pessoa_selecionada]
+    tarefas_pessoa = tarefas[tarefas['Nome'] == pessoa_selecionada]
 
     
     col1, col2 = st.columns([1, 2])
@@ -116,7 +117,7 @@ def mostrar_tarefas():
             opcoes = ["Sprint", "Pendência", "Reunião", "Responder", "Organizar", "Monitorar"]
             coluna_selecionada_adv = st.selectbox("Selecione a métrica:", opcoes)
             fig_adv_tarefas = px.line(
-            tarefas.sort_values(by='Data', ascending=True),
+            tarefas_pessoa.sort_values(by='Data', ascending=True),
             x="Data",
             y=coluna_selecionada_adv,
             markers=True,
@@ -193,10 +194,12 @@ def mostrar_tarefas():
             fig_pizza = px.pie(values=tarefas_agrupadas.values, names=tarefas_agrupadas.index, title="Tipos de Tarefas")
             st.plotly_chart(fig_pizza)
 
+           
+
             opcoes = ["Sprint", "Pendência", "Reunião", "Responder", "Organizar", "Monitorar"]
             coluna_selecionada_func = st.selectbox("Selecione a métrica:", opcoes)
             fig_func_tarefas = px.line(
-            tarefas.sort_values(by='Data', ascending=True),
+            tarefas_pessoa.sort_values(by='Data', ascending=True),
             x="Data",
             y=coluna_selecionada_func,
             markers=True,
