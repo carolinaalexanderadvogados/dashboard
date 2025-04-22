@@ -122,6 +122,20 @@ def mostrar_tarefas():
             markers=True,
             title=f"Evolução de {coluna_selecionada_adv}"
     )
+            fig_adv_tarefas.update_traces(line=dict(color=COR_LARANJA))
+
+    
+
+    # Customizar layout do gráfico
+            fig_adv_tarefas.update_layout(
+                xaxis_title="Data",
+                yaxis_title="Quantidade",
+                hovermode="x unified",
+                template="plotly_dark"
+            )
+
+            # Mostrar gráfico
+            st.plotly_chart(fig_adv_tarefas)
 
         elif cargo_pessoa == "Parceiro":
             row1, row2 = st.columns(3), st.columns(3)
@@ -178,3 +192,27 @@ def mostrar_tarefas():
             tarefas_agrupadas = tarefas_hoje_pessoa[["Sprint", "Pendência", "Reunião", "Responder", "Organizar", "Monitorar"]].sum()
             fig_pizza = px.pie(values=tarefas_agrupadas.values, names=tarefas_agrupadas.index, title="Tipos de Tarefas")
             st.plotly_chart(fig_pizza)
+
+            opcoes = ["Sprint", "Pendência", "Reunião", "Responder", "Organizar", "Monitorar"]
+            coluna_selecionada_func = st.selectbox("Selecione a métrica:", opcoes)
+            fig_func_tarefas = px.line(
+            tarefas.sort_values(by='Data', ascending=True),
+            x="Data",
+            y=coluna_selecionada_func,
+            markers=True,
+            title=f"Evolução de {coluna_selecionada_func}"
+    )
+            fig_func_tarefas.update_traces(line=dict(color=COR_LARANJA))
+
+    
+
+    # Customizar layout do gráfico
+            fig_func_tarefas.update_layout(
+                xaxis_title="Data",
+                yaxis_title="Quantidade",
+                hovermode="x unified",
+                template="plotly_dark"
+            )
+
+            # Mostrar gráfico
+            st.plotly_chart(fig_func_tarefas)

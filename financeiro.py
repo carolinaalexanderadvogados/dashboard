@@ -61,7 +61,7 @@ def mostrar_financeiro():
             title={"text": "Oxigênio em Meses"},
             gauge={
                 "axis": {"range": [0, oxigenio_objetivo]},
-                "bar": {"color": "#f7e1c1"},  # Cor da agulha
+                "bar": {"color": "#fcfaf7"},  # Cor da agulha
                 "steps": [
                     {"range": [0, 8], "color": "#ff6464"},  # Período crítico
                     {"range": [8, 16], "color": "#ffe162"},  # Período de atenção
