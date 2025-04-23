@@ -52,17 +52,21 @@ def mostrar_financeiro():
         oxigenio_atual = filtro.loc[filtro['Data'] == data_mais_recente, 'Oxigênio Meses'].values[0]
 
     graf1, graf2 = st.columns(2)
-
+    
     with graf1: 
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
-            value=oxigenio_atual/100,
+            value=oxigenio_atual,
             number={
                 'valueformat': '.0f',
-                'font': {'size': 32}
+                'suffix': ' meses',
+                'font': {'size': 48}  # ← Aumentado o tamanho da fonte do número
+            },
+            title={
+                "text": "Oxigênio em Meses",
+                "font": {"size": 24}  # ← Aumentado o tamanho da fonte do título
             },
             domain={'x': [0, 1], 'y': [0, 1]},
-            title={"text": "Oxigênio em Meses"},
             gauge={
                 "axis": {"range": [0, oxigenio_objetivo]},
                 "bar": {"color": "#fcfaf7"},
@@ -81,6 +85,9 @@ def mostrar_financeiro():
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
+
+
 
     with graf2: 
         fig_receitas = px.line(
