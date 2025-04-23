@@ -56,10 +56,9 @@ def mostrar_financeiro():
     with graf1: 
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
-            value=oxigenio_atual,
+            value=oxigenio_atual/100,
             number={
                 'valueformat': '.0f',
-                'suffix': ' meses',
                 'font': {'size': 48}  # ← Aumentado o tamanho da fonte do número
             },
             title={
