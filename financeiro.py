@@ -57,25 +57,32 @@ def mostrar_financeiro():
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
             value=oxigenio_atual,
+            number={
+                'valueformat': '.1f',
+                'suffix': ' meses',
+                'font': {'size': 32}
+            },
+            domain={'x': [0, 1], 'y': [0, 1]},
             title={"text": "Oxigênio em Meses"},
             gauge={
                 "axis": {"range": [0, oxigenio_objetivo]},
-                "bar": {"color": "#fcfaf7"},  # Cor da agulha
+                "bar": {"color": "#fcfaf7"},
                 "steps": [
-                    {"range": [0, 8], "color": "#ff6464"},  # Período crítico
-                    {"range": [8, 16], "color": "#ffe162"},  # Período de atenção
-                    {"range": [16, oxigenio_objetivo], "color":	"#91c483"}  # Situação confortável
+                    {"range": [0, 8], "color": "#ff6464"},
+                    {"range": [8, 16], "color": "#ffe162"},
+                    {"range": [16, oxigenio_objetivo], "color": "#91c483"}
                 ]
             }
         ))
 
-        fig = fig.update_layout(
-        paper_bgcolor="#ffffff",
-        font={"color": "black", "family": "Arial"},
-        margin=dict(t=30, b=0, l=0, r=0) 
+        fig.update_layout(
+            paper_bgcolor="#ffffff",
+            font={"color": "black", "family": "Arial"},
+            margin=dict(t=30, b=0, l=0, r=0)
         )
 
         st.plotly_chart(fig, use_container_width=True)
+
     with graf2: 
         fig_receitas = px.line(
             filtro.sort_values(by='Data', ascending=True),
