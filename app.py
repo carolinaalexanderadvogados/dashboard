@@ -159,6 +159,11 @@ if st.session_state["authentication_status"]:
             fig = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=oxigenio_atual,
+                number={
+                    'valueformat': '.0f',
+                    'suffix': ' meses',
+                    'font': {'size': 48}  # ← Aumentado o tamanho da fonte do número
+                },
                 title={"text": "Oxigênio em Meses"},
                 gauge={
                     "axis": {"range": [0, oxigenio_objetivo]},
