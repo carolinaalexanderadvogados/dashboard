@@ -161,7 +161,6 @@ if st.session_state["authentication_status"]:
                 value=oxigenio_atual,
                 number={
                     'valueformat': '.0f',
-                    'suffix': ' meses',
                     'font': {'size': 48}  # ← Aumentado o tamanho da fonte do número
                 },
                 title={"text": "Oxigênio em Meses"},
