@@ -34,7 +34,9 @@ financeiro.columns = financeiro.columns.str.strip()
 # Conversão de data e oxigênio
 financeiro['Data'] = pd.to_datetime(financeiro['Data'], format='%d/%m/%Y')
 financeiro['Oxigênio Meses'] = financeiro['Oxigênio Meses'].astype(str).apply(
-    lambda x: float(x.replace('.', '').replace(',', '.')))
+    lambda x: float(x.replace('.', '').replace(',', '.')) if ',' in x else float(x)
+)
+
 
 # Função de conversão de moeda
 def converter_moeda(valor):

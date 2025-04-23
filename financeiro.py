@@ -15,7 +15,7 @@ def mostrar_financeiro():
 
     col2, col3, col4 = st.columns(3)
 
-    data_mais_recente = filtro['Data'].max()
+    
     data_mais_recente = filtro['Data'].max()
     filtro_mais_recente = filtro[filtro['Data']== data_mais_recente]
     receita_atual = filtro_mais_recente['Receitas'].values[0]
@@ -27,7 +27,6 @@ def mostrar_financeiro():
     caixa_atual = filtro_mais_recente['Caixa'].values[0]
     caixa_anterior = filtro['Caixa'].values[1]
 
-    data_mais_recente_str = data_mais_recente.strftime('%d/%m/%Y')
 
 
     with col2: 
@@ -57,7 +56,7 @@ def mostrar_financeiro():
     with graf1: 
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
-            value=oxigenio_atual/100,
+            value=oxigenio_atual,
             title={"text": "Oxigênio em Meses"},
             gauge={
                 "axis": {"range": [0, oxigenio_objetivo]},
@@ -73,6 +72,7 @@ def mostrar_financeiro():
         fig = fig.update_layout(
         paper_bgcolor="#ffffff",
         font={"color": "black", "family": "Arial"},
+        margin=dict(t=30, b=0, l=0, r=0) 
         )
 
         st.plotly_chart(fig, use_container_width=True)
