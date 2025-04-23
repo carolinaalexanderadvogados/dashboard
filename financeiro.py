@@ -58,8 +58,7 @@ def mostrar_financeiro():
             mode="gauge+number",
             value=oxigenio_atual/100,
             number={
-                'valueformat': '.1f',
-                'suffix': ' meses',
+                'valueformat': '.0f',
                 'font': {'size': 32}
             },
             domain={'x': [0, 1], 'y': [0, 1]},
